@@ -6,6 +6,7 @@ $(document).ready(function (){
        this.still = still
 
 
+
    }; 
 
 var gifs = ["49ers", "Lakers", "Giants", "Eagles", "Taylor Swift", "Kittens", "Rick and Morty", "Dragon Ball Z", "Anakin", "Brunch"]
@@ -59,8 +60,29 @@ function dopeGifs(gifData) {
     
 }
 
+//changes the gif animation state between animated and still
+function stateChange(gifToChange) {
+    
+    console.log(gifToChange)
+    
+    var gifImage = gifToChange.imageBlock
+    var state = gifToChange.attr('state')
+
+    if (state === "animate") {
+        $(this).attr("src", $(this).attr("gif-still"))
+        $(this).attr("gif-state", "still")
+    }
+    else if (state === "still") {
+        $(this).attr("src", $(this).attr("gif-animate"))
+        $(this).attr("gif-state", "animate")
+    }
+    
+}
+
 renderButtons();
 $("body").on("click", ".gifButton", getGifs);
 $("body").on("click", "#addGif", newGif);
+$("body").on("click", "#gifBlock", stateChange);
+
 
 })
