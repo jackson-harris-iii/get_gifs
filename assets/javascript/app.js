@@ -1,5 +1,13 @@
 $(document).ready(function (){
 
+   function GIF(rating, animation, still) {
+       this.rating = rating,
+       this.animation = animation,
+       this.still = still
+
+
+   }; 
+
 var gifs = ["49ers", "Lakers", "Giants", "Eagles", "Taylor Swift", "Kittens", "Rick and Morty", "Dragon Ball Z", "Anakin", "Brunch"]
 var search = null;
 
@@ -26,7 +34,7 @@ function newGif(addition) {
 
 function getGifs(request) {
     
-    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=j3QaK4ow9CkKDewMbh0mUJTYeLwPsnmG&q=" + search + "&limit=25&offset=0&rating=G&lang=en"
+    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=j3QaK4ow9CkKDewMbh0mUJTYeLwPsnmG&q=" + search + "&limit=10&offset=0&rating=G&lang=en"
     search = request.target.id
     console.log(search)
     //call GIFY api and get GIFS broh.
@@ -34,9 +42,21 @@ function getGifs(request) {
         url: queryURL,
         method: 'GET',
     }).then(function (response) {
-        console.log(response)
+        var results = response.data
+        results.forEach(element => {
+            console.log(element)
+
+        });
+       
+
 
     })
+}
+
+//creates a pretty container for the returned gif data
+function dopeGifs(gifData) {
+    
+    
 }
 
 renderButtons();
