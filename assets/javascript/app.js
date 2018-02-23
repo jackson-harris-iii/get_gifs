@@ -4,10 +4,8 @@ $(document).ready(function (){
        this.rating = rating,
        this.animation = animation,
        this.still = still
-
-
-
-   }; 
+   };
+   
 
 var gifs = ["49ers", "Lakers", "Giants", "Eagles", "Taylor Swift", "Kittens", "Rick and Morty", "Dragon Ball Z", "Anakin", "Brunch"]
 var search = null;
@@ -45,8 +43,13 @@ function getGifs(request) {
     }).then(function (response) {
         var results = response.data
         results.forEach(element => {
-            console.log(element)
 
+            var rating = element.rating;
+            var animated = element.images.original.mp4;
+            var still = element.images.downsized;
+            var info = [rating, animated, still];
+            var gifData = new GIF(...info);
+            dopeGifs(gifData)
         });
        
 
@@ -54,9 +57,13 @@ function getGifs(request) {
     })
 }
 
-//creates a pretty container for the returned gif data
+//creates a pretty container for the returned gif data and pushes it to the page
 function dopeGifs(gifData) {
-    
+    console.log(gifData)
+    var newCard = $('<div><div>').attr("class", "gifBlock")
+    newCard.append("<div class='card-divider'>Rating :" + gifData.rating + "</div>")
+    newCard.append("<img src=' " + gifData.still.url + " '/> ")
+    $('#gifBox').append(newCard)
     
 }
 
