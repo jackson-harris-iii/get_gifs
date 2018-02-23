@@ -12,6 +12,18 @@ function renderButtons() {
     });
 }
 
+function newGif(addition) {
+    
+    event.preventDefault();
+    
+    var newAddition = $("#additionalGif").val().trim();
+    console.log(addition)
+
+    //adds button of new gif choice
+    $('#gifsView').append('<button class="button radius bordered shadow primary gifButton" id="' + newAddition + '">' + newAddition + '</button>')
+    gifs.push(newAddition)
+}
+
 function getGifs(request) {
     
     var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=j3QaK4ow9CkKDewMbh0mUJTYeLwPsnmG&q=" + search + "&limit=25&offset=0&rating=G&lang=en"
@@ -29,5 +41,6 @@ function getGifs(request) {
 
 renderButtons();
 $("body").on("click", ".gifButton", getGifs);
+$("body").on("click", "#addGif", newGif);
 
 })
