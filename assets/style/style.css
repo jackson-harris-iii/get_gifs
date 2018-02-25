@@ -1,3 +1,42 @@
+html, body {
+    margin:0;padding:0;height:100%;
+}
+
+.main {
+background: linear-gradient(142deg, #1cd1db, #834eb6, #d03e90, #3e81d0, #4eb692, #3e81d0, #d03e90, #834eb6, #1cd1db);
+background-size: 1800% 1800%;
+border-bottom: 2px solid #cdd3db;
+
+
+-webkit-animation: AnimationName 58s ease infinite;
+-moz-animation: AnimationName 58s ease infinite;
+animation: AnimationName 58s ease infinite;
+}
+@-webkit-keyframes AnimationName {
+    0%{background-position:5% 0%}
+    50%{background-position:96% 100%}
+    100%{background-position:5% 0%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:5% 0%}
+    50%{background-position:96% 100%}
+    100%{background-position:5% 0%}
+}
+@keyframes AnimationName { 
+    0%{background-position:5% 0%}
+    50%{background-position:96% 100%}
+    100%{background-position:5% 0%}
+}
+.secondary{
+background: linear-gradient(1deg, #697270, #383c3b, #697270);
+background-size: 600% 600%;
+height: 100%;
+
+-webkit-animation: AnimationName 60s ease infinite;
+-moz-animation: AnimationName 60s ease infinite;
+animation: AnimationName 60s ease infinite;
+}
+
 .imageBlock{
     max-width: 250px;
     vertical-align: middle;
@@ -8,3 +47,11 @@
     display: inline-block;
     margin: 5px;
 }
+
+.inputLabel{
+    color: rgb(255, 255, 255);
+    size: 500%;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bolder;
+}
+

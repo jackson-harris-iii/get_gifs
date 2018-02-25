@@ -7,7 +7,7 @@ $(document).ready(function (){
    };
    
 
-var gifs = ["49ers", "Lakers", "shade", "Drunk", "Taylor Swift", "Kanye", "Kittens", "Rick and Morty", "Dragon Ball Z", "Anakin", "Brunch", "EDM", "Samuel Jackson", "Drake", "Bruh"]
+var gifs = ["49ers", "Lakers", "Shade", "EDC", "Taylor Swift", "Kanye", "Kittens", "Rick and Morty", "Dragon Ball Z", "Anakin", "Brunch", "DJ", "Samuel Jackson", "Drake", "Bruh"]
 
 
 function renderButtons() {
@@ -58,8 +58,8 @@ function getGifs(request) {
             var gifData = new GIF(...info);
             // console.log(still)
             dopeGifs(gifData)
+            
         });
-       
 
 
     })
@@ -70,7 +70,7 @@ function dopeGifs(gifData) {
     console.log(gifData.animation)
     var newCard = $('<div><div>').attr("class", "gifBlock")
     newCard.append("<div class='card-divider'>Rating :" + gifData.rating + "</div>")
-    newCard.append("<img src='" +gifData.animation.url+ "'class='imageBlock' gif-state='animate' gif-alt='"+gifData.still+"' /> ")
+    newCard.append("<img src='" +gifData.animation.url+ "'class='imageBlock fade-in' gif-state='animate' gif-alt='"+gifData.still+"' /> ")
     $('#gifBox').append(newCard)
     
 }
@@ -98,6 +98,8 @@ function stateChange(gifToChange) {
     }
     
 }
+
+
 
 renderButtons();
 $("body").on("click", ".gifButton", getGifs);
