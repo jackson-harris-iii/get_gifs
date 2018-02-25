@@ -7,13 +7,13 @@ $(document).ready(function (){
    };
    
 
-var gifs = ["49ers", "Lakers", "Giants", "Eagles", "Taylor Swift", "Kittens", "Rick and Morty", "Dragon Ball Z", "Anakin", "Brunch"]
+var gifs = ["49ers", "Lakers", "shade", "Drunk", "Taylor Swift", "Kanye", "Kittens", "Rick and Morty", "Dragon Ball Z", "Anakin", "Brunch", "EDM", "Samuel Jackson", "Drake", "Bruh"]
 
 
 function renderButtons() {
     $("#gifsView").empty()
     gifs.forEach(element => {
-        $("#gifsView").append('<button class="button radius bordered shadow primary gifButton" id="' + element + '">'+  element + '</button>')
+        $("#gifsView").append('<button class="button radius bordered shadow primary gifButton margin-right-1" id="' + element + '">'+  element + '</button>')
 
     });
 }
@@ -23,11 +23,13 @@ function newGif(addition) {
     event.preventDefault();
     
     var newAddition = $("#additionalGif").val().trim();
-    console.log(addition)
 
     //adds button of new gif choice
+    if (newAddition.length > 1 && gifs.indexOf(newAddition) == -1 ){
     $('#gifsView').append('<button class="button radius bordered shadow primary gifButton" id="' + newAddition + '">' + newAddition + '</button>')
     gifs.push(newAddition)
+    }
+
 }
 
 function getGifs(request) {
@@ -46,12 +48,15 @@ function getGifs(request) {
     }).then(function (response) {
         var results = response.data
         results.forEach(element => {
-
+            // var stillLocation = element.keys(images)[0]
+            // console.log(element)
             var rating = element.rating;
-            var animated = element.images.original.mp4;
-            var still = element.images.downsized;
+            var animated = element.images.downsized;
+            var still = element.images["480w_still"].url;
+            // console.log(stillLocation)
             var info = [rating, animated, still];
             var gifData = new GIF(...info);
+            // console.log(still)
             dopeGifs(gifData)
         });
        
@@ -62,10 +67,10 @@ function getGifs(request) {
 
 //creates a pretty container for the returned gif data and pushes it to the page
 function dopeGifs(gifData) {
-    console.log(gifData)
+    console.log(gifData.animation)
     var newCard = $('<div><div>').attr("class", "gifBlock")
     newCard.append("<div class='card-divider'>Rating :" + gifData.rating + "</div>")
-    newCard.append("<img src=' " + gifData.still.url + " '/> ")
+    newCard.append("<img src='" +gifData.animation.url+ "'class='imageBlock' gif-state='animate' gif-alt='"+gifData.still+"' /> ")
     $('#gifBox').append(newCard)
     
 }
@@ -73,18 +78,23 @@ function dopeGifs(gifData) {
 //changes the gif animation state between animated and still
 function stateChange(gifToChange) {
     
-    console.log(gifToChange)
     
-    var gifImage = gifToChange.imageBlock
-    var state = gifToChange.attr('state')
+    var gifImage = gifToChange.target
+    var state = $(this).attr("gif-state");
+    console.log(state)
 
     if (state === "animate") {
-        $(this).attr("src", $(this).attr("gif-still"))
+        var temp = $(this).attr("src")
+        console.log(temp)
+        $(this).attr("src", $(this).attr("gif-alt"))
         $(this).attr("gif-state", "still")
+        $(this).attr("gif-alt", temp)
     }
     else if (state === "still") {
-        $(this).attr("src", $(this).attr("gif-animate"))
+        var temp = $(this).attr("src");
+        $(this).attr("src", $(this).attr("gif-alt"))
         $(this).attr("gif-state", "animate")
+        $(this).attr("gif-alt", temp);
     }
     
 }
@@ -92,7 +102,7 @@ function stateChange(gifToChange) {
 renderButtons();
 $("body").on("click", ".gifButton", getGifs);
 $("body").on("click", "#addGif", newGif);
-$("body").on("click", "#gifBlock", stateChange);
+$("body").on("click", ".imageBlock", stateChange);
 
 
 })

@@ -1,0 +1,10 @@
+.imageBlock{
+    max-width: 250px;
+    vertical-align: middle;
+}
+
+.gifBlock {
+    max-width: 250px;
+    display: inline-block;
+    margin: 5px;
+}
